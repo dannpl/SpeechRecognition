@@ -30,6 +30,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/firebase.js' },
+    { src: '~/plugins/vue-moment.js', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules

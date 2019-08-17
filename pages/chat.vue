@@ -39,6 +39,7 @@ export default {
     width: 10%;
     border-radius: 30px;
     width: 91%;
+     
     right: 8%;
 }
 .btn-enviar{

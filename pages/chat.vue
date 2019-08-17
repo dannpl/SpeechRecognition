@@ -1,55 +1,127 @@
 <template>
-<v-card class="conteudo">
+  <v-card class="wrapper-chat">
+    <v-card width="100%" class="box-messages">
+      <v-card-text>
+        <div class="message" v-for="(message, i) in messages" :key="i">
+          <p
+            class="label-name"
+            :class="{'message-me': message.me === true, 'message-other': message.me === false}"
+          >
+            <!-- Messages Users -->
+            <span
+              class="message"
+              v-if="message.role !== 'tip' && message.role !== 'system'"
+            >{{message.message}}</span>
+          </p>
+        </div>
+      </v-card-text>
+    </v-card>
+    <v-card class="text-input">
+      <v-text-field
+        v-model="text"
+        class="input-msg"
+        placeholder="Digite Aqui"
+        outlined
+        color="green"
+        @keyup.enter="text !== '' ? send() : ''"
+      ></v-text-field>
 
-<div class="chat">
-
-     <v-text-field class="barra-digitar"
-            placeholder="Digite Aqui"
-            outlined>
-          </v-text-field>
-
-            <v-btn class="btn-enviar"
-              dark
-              fab
-              color="green"
-            >
-              <v-icon></v-icon>
-            </v-btn>
-</div>
-</v-card>
+      <v-btn class="btn-send" dark fab color="#059021" @click="text !== '' ? send() : ''">
+        <v-icon size="32">{{text === '' ? 'keyboard_voice' : 'send'}}</v-icon>
+      </v-btn>
+    </v-card>
+  </v-card>
 </template>
 <script>
 export default {
-    
+  data () {
+    return {
+      text: '',
+      messages: [
+        { message: 'teste', me: true },
+        { message: 'Oiii', me: false },
+      ]
+    }
+  },
+  methods: {
+    send () {
+      const message = {
+        message: this.text,
+        me: true
+      }
+      this.messages.push(message)
+      this.text = ''
+    }
+  }
 }
 </script>
 <style scoped>
-.conteudo{
-    width: 100%;
-    height: 100%;
+.v-card {
+  border-radius: unset !important;
 }
-.chat{
-    padding: 21%;
-    background-color: green;
-    border-radius:10px;
+.box-messages {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 72px;
+  display: flex;
+  position: absolute;
+  flex-direction: column-reverse;
+  height: calc(100% - 2px);
+  margin-top: -10px;
+  margin-left: -12px;
 }
-.barra-digitar{
-    position: absolute;
-    bottom: 0;
-    width: 10%;
-    border-radius: 30px;
-    width: 91%;
-     
-    right: 8%;
+.message {
+  width: 100%;
+  display: inline-block;
 }
-.btn-enviar{
-    bottom: 0 !important;
-    position: absolute !important;
-    position: absolute !important;
-    right: 23px;
-    padding: 30px;
-    margin-bottom: 26px;
+.wrapper-chat {
+  width: 100%;
+  height: 100%;
+  display: contents;
 }
-
-
+.input-msg {
+  position: fixed;
+  bottom: -20px;
+  width: 92%;
+  right: 7%;
+}
+.btn-send {
+  box-shadow: none;
+  bottom: 0 !important;
+  position: fixed !important;
+  right: 9px;
+  margin-bottom: 12px;
+}
+.message-other {
+  background-color: #ffe60d;
+  padding: 3px 10px;
+  max-width: 68%;
+  border-radius: 4px;
+  word-break: break-all;
+  color: #525252;
+  float: left;
+}
+.message-me {
+  background-color: #059021;
+  padding: 3px 10px;
+  color: white;
+  max-width: 68%;
+  border-radius: 4px;
+  word-break: break-all;
+  float: right;
+}
+.label-name {
+  font-weight: bold;
+  margin-bottom: 0px;
+  font-size: 15px;
+}
+.text-input {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  background-color: white;
+  height: 78px;
+  bottom: 0;
+  border-top: 1px solid #00000029;
+}
 </style>

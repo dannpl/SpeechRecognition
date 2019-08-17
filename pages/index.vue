@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import Recorder from 'recorder-js';
 export default {
   components: {
   },

@@ -59,15 +59,15 @@ export default {
       }
       this.messages.push(data)
 
-      axios.post(this.url, this.mensagem)
-        .then((response) => {
-          this.messages.push({
-            message: response.data.output.text,
-            me: false,
-            suggest: response.data.context.sugestoes
-          });
-          this.text = '';
-        })
+      // axios.post(this.url, this.mensagem)
+      //   .then((response) => {
+      //     this.messages.push({
+      //       message: response.data.output.text,
+      //       me: false,
+      //       suggest: response.data.context.sugestoes
+      //     });
+      //     this.text = '';
+      //   })
     },
     recordAudio () {
       const self = this

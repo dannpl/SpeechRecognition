@@ -24,29 +24,7 @@ export default {
     }
   },
   methods: {
-    recordAudio () {
-      // testa se o navegador suporta o reconhecimento de voz
-      if (window.SpeechRecognition || window.webkitSpeechRecognition) {
-        // captura a voz
-        var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-        var recognition = new SpeechRecognition();
-        // inicia reconhecimento
-        recognition.lang = 'pt-BR';
-        recognition.start();
-        // resultado do reconhecimento
-        recognition.addEventListener('result', function (e) {
-          console.log(e);
-          var result = e.results[0][0].transcript;
-          console.log(result);
-          if (result.toLowerCase() === 'alex') {
-            alert('Alex gay')
-          }
-          // window.location.href = 'http://' + result;
-        }, false);
-      } else {
-        alert('Este navegador não suporta esta funcionalidade ainda!');
-      }
-    }
+
   }
 }
 </script>

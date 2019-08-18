@@ -26,31 +26,85 @@
         @keyup.enter="text !== '' ? send() : ''"
       ></v-text-field>
 
-      <v-btn class="btn-send" dark fab color="#059021" @click="text !== '' ? send() : ''">
+      <v-btn
+        class="btn-send"
+        dark
+        fab
+        color="#059021"
+        @click="text !== '' ? send() : recordAudio()"
+      >
         <v-icon size="32">{{text === '' ? 'keyboard_voice' : 'send'}}</v-icon>
       </v-btn>
     </v-card>
   </v-card>
 </template>
 <script>
+import axios from 'axios';
 export default {
   data () {
     return {
+      url: `http://localhost:4200/messages/`,
       text: '',
       messages: [
         { message: 'teste', me: true },
-        { message: 'Oiii', me: false },
+        { message: 'Oiii', me: false, suggest: ''},
       ]
     }
   },
   methods: {
     send () {
-      const message = {
+      const data = {
         message: this.text,
         me: true
       }
-      this.messages.push(message)
-      this.text = ''
+      this.messages.push(data)
+
+      axios.post(this.url, this.mensagem)
+        .then((response) => {
+          this.messages.push({
+            message: response.data.output.text,
+            me: false,
+            suggest: response.data.context.sugestoes
+          });
+          this.text = '';
+        })
+    },
+    recordAudio () {
+      const self = this
+      // testa se o navegador suporta o reconhecimento de voz
+      if (window.SpeechRecognition || window.webkitSpeechRecognition) {
+        // captura a voz
+        var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+        var recognition = new SpeechRecognition();
+        // inicia reconhecimento
+        recognition.lang = 'pt-BR';
+        recognition.start();
+        // resultado do reconhecimento
+        recognition.addEventListener('result', function (e) {
+          var result = e.results[0][0].transcript;
+
+          // Me Audio
+          const message = {
+            message: result,
+            me: true
+          }
+          self.messages.push(message)
+
+          // Bot response
+          const ajuda = result.search('Ajuda')
+          if (ajuda === -1) {
+            const message = {
+              message: 'No que posso ajudar?',
+              me: false
+            }
+            self.messages.push(message)
+          }
+
+          // window.location.href = 'http://' + result;
+        }, false);
+      } else {
+        alert('Este navegador não suporta esta funcionalidade ainda!');
+      }
     }
   }
 }
@@ -123,5 +177,8 @@ export default {
   height: 78px;
   bottom: 0;
   border-top: 1px solid #00000029;
+}
+.v-input__slot {
+  border-radius: 4px;
 }
 </style>

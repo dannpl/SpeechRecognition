@@ -4,16 +4,16 @@ import 'firebase/firestore'
 import 'firebase/database'
 
 var config = {
-  apiKey: "AIzaSyB5igWxV-E0OINofSmSTBSRDqf3oy5t7RQ",
-  authDomain: "hackaton-petro.firebaseapp.com",
-  databaseURL: "https://hackaton-petro.firebaseio.com",
-  projectId: "hackaton-petro",
-  storageBucket: "",
-  messagingSenderId: "502266798379",
-  appId: "1:502266798379:web:038c0c55369cc9f6"
-}
+    apiKey: "AIzaSyB9uyeUGxM8FgYP--SqnCJ3Oj1RJn7FxEc",
+    authDomain: "voicebots-2ef24.firebaseapp.com",
+    databaseURL: "https://voicebots-2ef24.firebaseio.com",
+    projectId: "voicebots-2ef24",
+    storageBucket: "",
+    messagingSenderId: "926281832056",
+    appId: "1:926281832056:web:86960a1c9cc66902"
+  }
 
-!firebase.apps.length ? firebase.initializeApp(config) : ''
+  !firebase.apps.length ? firebase.initializeApp(config) : ''
 export const GoogleProvider = new firebase.auth.GoogleAuthProvider()
 export const auth = firebase.auth()
 export const DB = firebase.database()

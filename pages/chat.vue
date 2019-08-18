@@ -59,6 +59,7 @@ export default {
       }
       this.messages.push(data)
 
+      this.text = '';
       // axios.post(this.url, this.mensagem)
       //   .then((response) => {
       //     this.messages.push({
@@ -66,7 +67,6 @@ export default {
       //       me: false,
       //       suggest: response.data.context.sugestoes
       //     });
-      //     this.text = '';
       //   })
     },
     recordAudio () {

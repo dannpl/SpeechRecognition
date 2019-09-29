@@ -1,8 +1,6 @@
 # SpeechRecognition
 
-Recognition of voice using the lib SpeechRecognition
-
-> My cool Nuxt.js project
+> Recognition of voice using the lib SpeechRecognition
 
 ## Build Setup
 
